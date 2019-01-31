@@ -1,0 +1,8 @@
+(x, y) => x + y
+// callback functions don't have a name,
+// just returns a value
+
+arrays are not immutable
+const makes array immutable
+
+scope should be as narrow as possible
