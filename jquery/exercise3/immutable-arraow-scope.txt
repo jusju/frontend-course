@@ -6,3 +6,21 @@ arrays are not immutable
 const makes array immutable
 
 scope should be as narrow as possible
+
+this.props.firstname
+how to refer to props
+
+ES6 has been SINCE SPRING 2017!
+
+If state needs to be updated use state,
+
+State and props are javascript objects
+
+in render:
+if (this.state.imageurl !== '') {
+return <div>
+</div>
+
+} else {
+    return <div></div>
+}

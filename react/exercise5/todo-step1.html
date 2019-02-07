@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>React getting started</title>
+  </head>
+  <body>
+    <!-- Root container for react components -->
+    <div id='root'></div>
+ 
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {description: '', date: '', todos: []}
+  }
+
+  inputChanged = (event) => {
+    this.setState({[event.target.name]: event.target.value});
+  }
+
+  addTodo = (event) => {
+    event.preventDefault();
+    const newTodo =  {description: this.state.description, date: this.state.date};
+    this.setState({
+      todos: [...this.state.todos, newTodo]
+    });
+  }
+
+
+  render() {
+    return (
+      <div className="App">
+        <div className="App-header">
+          <h2>Simple Todolist</h2>
+        </div>
+        <div>
+          <form onSubmit={this.addTodo}>
+            <fieldset>
+              <legend>Add todo:</legend>
+              Description:
+              <input type="text" name="description" onChange={this.inputChanged} value={this.state.description}/>
+              Date:
+              <input type="text" name="date" onChange={this.inputChanged} value={this.state.date}/>
+              <input type="submit" value="Add"/>
+            </fieldset>
+          </form>
+        </div>
+        <div className="App">
+          <table>
+            <tbody>
+              <tr><th>Date</th><th>Description</th></tr>
+              {this.state.todos.map((item, index) => <tr key={index}><td>{item.date}</td><td>{item.description}</td><td></td></tr>)}
+            </tbody>
+          </table>
+        </div>          
+      </div>    
+    );
+  }
+}
+
+      
+      ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+  </body>
+</html>
