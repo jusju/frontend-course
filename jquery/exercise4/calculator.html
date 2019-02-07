@@ -11,7 +11,7 @@
 <body>
 
     <p id="result"></p>
-    <input type="text" name="firstNumber"/>
+    <input id="firstNumber" type="text" name="first"/>
     <input type="text" name="secondNumber"/>
     <p id="secondText">This is my HTML5 Boilerplate. Second p element.</p>
     <button id="plusbutton">+</button>
@@ -25,7 +25,7 @@
             });
             $("#plusbutton").click(function () {
                 console.log("Button pressed");
-                $("p#result").text("Sum");
+                $("p#result").text(("Result =") + $('#firstNumber').val());
             });
         });
     </script>

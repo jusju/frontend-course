@@ -14,12 +14,12 @@
 
     <script type="text/babel">
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {description: '', date: '', todos: []}
   }
+
 
   inputChanged = (event) => {
     this.setState({[event.target.name]: event.target.value});
