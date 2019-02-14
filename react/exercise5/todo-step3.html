@@ -14,12 +14,13 @@
 
     <script type="text/babel">
 
+import TodoTable from './components/TodoTable'
+
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {description: '', date: '', todos: []};
+    this.state = {description: '', date: '', todos: []}
   }
-
 
   inputChanged = (event) => {
     this.setState({[event.target.name]: event.target.value});
@@ -33,6 +34,13 @@ class App extends React.Component {
     });
   }
 
+  deleteItem = (event) => {
+    const index = parseInt(event.target.id);
+
+    this.setState({
+      todos: this.state.todos.filter((todo, i) => i !== index),
+    })
+  }
 
   render() {
     return (
@@ -47,7 +55,7 @@ class App extends React.Component {
               Description:
               <input type="text" name="description" onChange={this.inputChanged} value={this.state.description}/>
               Date:
-              <input type="date" name="date" onChange={this.inputChanged} value={this.state.date}/>
+              <input type="text" name="date" onChange={this.inputChanged} value={this.state.date}/>
               <input type="submit" value="Add"/>
             </fieldset>
           </form>
@@ -56,7 +64,7 @@ class App extends React.Component {
           <table>
             <tbody>
               <tr><th>Date</th><th>Description</th></tr>
-              {this.state.todos.map((item, index) => <tr key={index}><td>{item.date}</td><td>{item.description}</td><td></td></tr>)}
+              <TodoTable todos={this.state.todos} />
             </tbody>
           </table>
         </div>          
@@ -64,6 +72,7 @@ class App extends React.Component {
     );
   }
 }
+
 
       
       ReactDOM.render(<App />, document.getElementById('root'));

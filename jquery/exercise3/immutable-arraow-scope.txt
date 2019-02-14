@@ -17,10 +17,12 @@ If state needs to be updated use state,
 State and props are javascript objects
 
 in render:
-if (this.state.imageurl !== '') {
+if (this.state.url !== '') {
 return <div>
 </div>
 
 } else {
     return <div></div>
 }
+
+missed one }
