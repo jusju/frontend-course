@@ -1,5 +1,7 @@
 import React, { Component, Alert } from "react";
 import "./App.css";
+import ReactTable from 'react-table';
+import 'react-table/react-table.css';
 
 class App extends Component {
   constructor(props) {
@@ -31,6 +33,8 @@ class App extends Component {
   };
 
   render() {
+
+    
     return (
       <div className="App">
         <div className="App-header">
@@ -72,8 +76,25 @@ export class TodoTable extends Component {
   }
 
   render() {
+    const columns = [{
+      Header: 'Date'
+      ,
+      accessor: 'date' // String-based value accessors!
+      }, {
+      Header: 'Description'
+      ,
+      accessor: 'description'
+      }, {
+      Header: 'Delete'
+      ,
+      accessor: 'delete'
+      ,
+      }];
     return (
       <div className="App">
+      <ReactTable data={this.props.todos}
+        columns={columns} sortable='true'
+        defaultPageSize='10' />
         <table>
           <tbody>
             <tr>
