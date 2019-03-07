@@ -53,7 +53,7 @@ class App extends Component {
               />
               Date:
               <input
-                type="text"
+                type="date"
                 name="date"
                 onChange={this.inputChanged}
                 value={this.state.date}
