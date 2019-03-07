@@ -24,11 +24,11 @@ class App extends Component {
     });
   };
 
-  deleteItem = event => {
-    const index = parseInt(event.target.id);
-
+  deleteItem = (row) => {
+    //const index = parseInt(event.target.id);
+    console.log(row);
     this.setState({
-      todos: this.state.todos.filter((todo, i) => i !== index)
+      todos: this.state.todos.filter((todo, i) => i !== row.index)
     });
   };
 
@@ -62,7 +62,7 @@ class App extends Component {
             </fieldset>
           </form>
         </div>
-        <TodoTable todos={this.state.todos} methodToDo={this.deleteItem} />
+        <TodoTable todos={this.state.todos} deleteItem={this.deleteItem} />
       </div>
     );
   }
@@ -77,24 +77,25 @@ export class TodoTable extends Component {
 
   render() {
     const columns = [{
-      Header: 'Date'
-      ,
-      accessor: 'date' // String-based value accessors!
+        Header: 'Date',
+        accessor: 'date' ,// String-based value accessors!
+        sortable: false
       }, {
-      Header: 'Description'
-      ,
-      accessor: 'description'
+        Header: 'Description',
+        accessor: 'description'
       }, {
-      Header: 'Delete'
-      ,
-      accessor: 'delete'
-      ,
-      }];
+        Header: '',
+        accessor: 'date',
+        sortable: false,
+        filterable: false,
+        Cell: row => <button onClick={() => this.props.deleteItem(row)}>Delete</button>
+        }
+    ];
     return (
       <div className="App">
-      <ReactTable data={this.props.todos}
-        columns={columns} sortable='true'
-        defaultPageSize='10' />
+      <ReactTable data={this.props.todos} 
+        columns={columns} filterable={true} sortable={true}
+        defaultPageSize={10} />
         <table>
           <tbody>
             <tr>
@@ -103,7 +104,7 @@ export class TodoTable extends Component {
             </tr>
             {this.props.todos.map((item, index) => (
               <tr key={index}>
-                <td>{item.date}</td>
+                <td>{item.date }</td>
                 <td>{item.description}</td>
                 <td>
                   <button id={index} onClick={this.props.methodToDo}>
