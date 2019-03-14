@@ -40,7 +40,7 @@ export class Home extends Component {
 export class About extends Component {
   render() {
     return (
-      <div>
+      <div style={{width:20 }}>
         <h1>About</h1>
       </div>
     );
