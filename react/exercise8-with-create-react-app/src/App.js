@@ -7,6 +7,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import TextField from '@material-ui/core/TextField';
+import { Typography } from "@material-ui/core";
+
 
 class App extends Component {
   constructor(props) {
@@ -31,10 +33,12 @@ class App extends Component {
 
   deleteItem = (row) => {
     //const index = parseInt(event.target.id);
-    console.log(row);
-    this.setState({
-      todos: this.state.todos.filter((todo, i) => i !== row.index)
-    });
+    if(window.confirm("Are you sure?")) {
+      console.log(row);
+      this.setState({
+        todos: this.state.todos.filter((todo, i) => i !== row.index)
+      });
+    }
   };
 
   render() {
@@ -43,7 +47,11 @@ class App extends Component {
     return (
       <div className="App">
       <AppBar position='static'>
-      <Toolbar>TODOLIST</Toolbar>
+      <Toolbar>
+        <Typography variant="h6" color="inherit">
+          TODOLIST
+        </Typography>
+      </Toolbar>
       
       </AppBar>
   
@@ -102,7 +110,7 @@ export class TodoTable extends Component {
         accessor: 'date',
         sortable: false,
         filterable: false,
-        Cell: row => <button onClick={() => this.props.deleteItem(row)}>Delete</button>
+        Cell: row => <Button color="secondary" onClick={() => this.props.deleteItem(row)}>Delete</Button>
         }
     ];
     return (

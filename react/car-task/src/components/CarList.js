@@ -21,10 +21,12 @@ class CarList extends Component {
     }
 
     deleteCar = (carLink) => {
-        fetch(carLink.original._links.self.href, {method: 'DELETE'})
-        .then(res => this.loadCars())
-        .catch(err => console.error(err))
-        //console.log(carLink.original._links.self.href);
+        if(window.confirm("Are you sure?")) {
+            fetch(carLink.original._links.self.href, {method: 'DELETE'})
+            .then(res => this.loadCars())
+            .catch(err => console.error(err))
+            //console.log(carLink.original._links.self.href);
+        }
     }
 
     render() {
