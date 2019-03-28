@@ -12,7 +12,7 @@ import { Typography } from "@material-ui/core";
 class EditCar extends Component {
     constructor(props) {
         super(props);
-        this.state = { open: false , model: '', brand: '', color: '', fuel: '', year: '', price: ''};
+        this.state = { open: false , model: '', brand: '', color: '', fuel: '', year: '', price: '', message: ''};
     }
 
     handleClickOpen = () => {

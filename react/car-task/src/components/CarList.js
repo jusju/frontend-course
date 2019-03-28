@@ -12,7 +12,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 class CarList extends Component {
     constructor(props) {
         super(props);
-        this.state = { cars: [], open: 'false' };
+        this.state = { cars: [], open: 'false', message: '' };
     }
 
     // cdm Fetch cars
@@ -39,6 +39,7 @@ class CarList extends Component {
         if (window.confirm("Are you sure?")) {
             fetch(carLink.original._links.self.href, { method: 'DELETE' })
                 .then(res => this.loadCars())
+                .then(res => this.setState({open: true, message: 'Car deleted'}))
                 .catch(err => console.error(err))
             //console.log(carLink.original._links.self.href);
         }
@@ -54,7 +55,7 @@ class CarList extends Component {
               body: JSON.stringify(car)
             })
             .then(res => this.loadCars())
-            .then(res => this.setState({open: true}))
+            .then(res => this.setState({open: true, message: 'Car added'}))
             .catch(err => console.error(err));
     }
     updateCar = (link, updatedCar) => {
@@ -68,7 +69,7 @@ class CarList extends Component {
               body: JSON.stringify(updatedCar)
             })
             .then(res => this.loadCars())
-            .then(res => this.setState({open: true}))
+            .then(res => this.setState({open: true, message: 'Changes saved'}))
             .catch(err => console.error(err));
     }
 
@@ -128,7 +129,7 @@ class CarList extends Component {
                 open={this.state.open}
                 autoHideDuration={3000}
                 onClose={this.handleClose}
-                message='Car added succesfully'                 
+                message={this.state.message}                 
                  />
             </div>
         );
