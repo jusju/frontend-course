@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import ReactTable from "react-table";
 import 'react-table/react-table.css';
 import AddCar from './AddCar';
+import EditCar from './EditCar';
 import SaveIcon from '@material-ui/icons/Save';
 import TextField from '@material-ui/core/TextField';
 import { Typography } from "@material-ui/core";
+import Snackbar from '@material-ui/core/Snackbar';
+
 
 class CarList extends Component {
     constructor(props) {
         super(props);
-        this.state = { cars: [] };
+        this.state = { cars: [], open: 'false' };
     }
 
     // cdm Fetch cars
@@ -32,6 +35,14 @@ class CarList extends Component {
             //console.log(carLink.original._links.self.href);
         }
     }
+    deleteCar = (carLink) => {
+        if (window.confirm("Are you sure?")) {
+            fetch(carLink.original._links.self.href, { method: 'DELETE' })
+                .then(res => this.loadCars())
+                .catch(err => console.error(err))
+            //console.log(carLink.original._links.self.href);
+        }
+    }
     saveCar = (car) => {
         fetch('https://carstockrest.herokuapp.com/cars', 
             { 
@@ -43,7 +54,26 @@ class CarList extends Component {
               body: JSON.stringify(car)
             })
             .then(res => this.loadCars())
+            .then(res => this.setState({open: true}))
             .catch(err => console.error(err));
+    }
+    updateCar = (link, updatedCar) => {
+        fetch(link, 
+            { 
+                method: 'PUT',
+
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+              body: JSON.stringify(updatedCar)
+            })
+            .then(res => this.loadCars())
+            .then(res => this.setState({open: true}))
+            .catch(err => console.error(err));
+    }
+
+    handleClose = () => {
+        this.setState({open: false})
     }
 
     render() {
@@ -76,6 +106,13 @@ class CarList extends Component {
             {
                 Header: '',
                 accessor: '_links.self.href',
+                Cell: ({ value, row }) => (
+                    <EditCar updateCar={this.updateCar} link={value} car={row} />
+                )
+            },
+            {
+                Header: '',
+                accessor: '_links.self.href',
                 Cell: value => <button onClick={() => this.deleteCar(value)}>Delete</button>
             },
         ];
@@ -83,6 +120,16 @@ class CarList extends Component {
             <div>
                 <AddCar saveCar={this.saveCar} />
                 <ReactTable filterable={true} data={this.state.cars} columns={columns} />
+                <Snackbar
+                    anchorOrigin={{   
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                    }}
+                open={this.state.open}
+                autoHideDuration={3000}
+                onClose={this.handleClose}
+                message='Car added succesfully'                 
+                 />
             </div>
         );
     }
