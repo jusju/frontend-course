@@ -7,7 +7,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import TextField from '@material-ui/core/TextField';
 import { Typography } from "@material-ui/core";
 import Snackbar from '@material-ui/core/Snackbar';
-
+import { CSVLink, CSVDownload } from "react-csv";
 
 class CarList extends Component {
     constructor(props) {
@@ -120,6 +120,7 @@ class CarList extends Component {
         return (
             <div>
                 <AddCar saveCar={this.saveCar} />
+                <CSVLink data={this.state.cars} separator={";"}>Download cars</CSVLink>
                 <ReactTable filterable={true} data={this.state.cars} columns={columns} />
                 <Snackbar
                     anchorOrigin={{   

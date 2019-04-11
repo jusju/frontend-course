@@ -6,6 +6,7 @@
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
     "react": "^16.8.4",
+    "react-csv": "^1.1.1",
     "react-dom": "^16.8.4",
     "react-scripts": "2.1.8",
     "react-table": "^6.9.2"
