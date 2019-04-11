@@ -12,7 +12,7 @@ import { CSVLink, CSVDownload } from "react-csv";
 class CarList extends Component {
     constructor(props) {
         super(props);
-        this.state = { cars: [], open: 'false', message: '' };
+        this.state = { cars: [], open: false, message: '' };
     }
 
     // cdm Fetch cars
@@ -27,14 +27,7 @@ class CarList extends Component {
             .catch(err => console.error(err));
     }
 
-    deleteCar = (carLink) => {
-        if (window.confirm("Are you sure?")) {
-            fetch(carLink.original._links.self.href, { method: 'DELETE' })
-                .then(res => this.loadCars())
-                .catch(err => console.error(err))
-            //console.log(carLink.original._links.self.href);
-        }
-    }
+
     deleteCar = (carLink) => {
         if (window.confirm("Are you sure?")) {
             fetch(carLink.original._links.self.href, { method: 'DELETE' })
